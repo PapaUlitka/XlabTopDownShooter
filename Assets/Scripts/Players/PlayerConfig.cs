@@ -1,0 +1,9 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "PlayerConfig", menuName = "Player Config")]
+public sealed class PlayerConfig : ScriptableObject
+{
+    [SerializeField] [Range(0f, 100f)] private float m_speed = 5;
+
+    public float speed => m_speed;
+}
