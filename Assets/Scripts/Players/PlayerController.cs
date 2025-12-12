@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private NavMeshMouseResolver m_navMeshMouseResolver;
     [SerializeField] private PlayerMovement m_playerMovement;
 
+    private PlayerRotationCalculator m_playerRotationCalculator;
 
     private void OnValidate()
     {
@@ -26,17 +27,23 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        m_playerMovement.Initialize(m_config.speed);
+        var camera = Camera.main;
+        m_playerMovement.Initialize(m_config.speed, m_config.angularSpeed);
         m_navMeshMouseResolver.Initialize(Camera.main);
+        m_playerRotationCalculator = new PlayerRotationCalculator(camera, transform);
 
         SetupCursor();
     }
 
     void Update()
     {
+
+        Vector3 mousePosition = Mouse.current.position.ReadValue();
+        var lookPoint = m_playerRotationCalculator.Calculate(mousePosition);
+        m_playerMovement.RotateTowards(lookPoint);
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            Vector3 mousePosition = Mouse.current.position.ReadValue();
+            
             Vector3? navPoint = m_navMeshMouseResolver.GetNavMeshPoint(mousePosition);
             if (navPoint.HasValue)
             {

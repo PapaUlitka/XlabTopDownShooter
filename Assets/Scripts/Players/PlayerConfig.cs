@@ -11,5 +11,7 @@ public sealed class PlayerConfig : ScriptableObject
 
     public float speed => m_speed;
 
+    public float angularSpeed => m_angularSpeed;
+
     public Texture2D cursorTexture => m_cursorTexture;
 }
