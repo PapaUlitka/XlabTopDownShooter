@@ -1,15 +1,16 @@
 using Assets.Scripts.Players;
+using Magic.Systems;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMovement))]
-[RequireComponent (typeof(NavMeshMouseResolver))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerConfig m_config; 
-    [SerializeField] private NavMeshMouseResolver m_navMeshMouseResolver;
+    [SerializeField] private MouseResolver m_navMeshMouseResolver;
     [SerializeField] private PlayerMovement m_playerMovement;
+    [SerializeField] private MagicInputHelper m_magicInput;
 
     private PlayerRotationCalculator m_playerRotationCalculator;
 
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
         }
         if (!m_navMeshMouseResolver)
         {
-            m_navMeshMouseResolver = GetComponent<NavMeshMouseResolver>();
+            m_navMeshMouseResolver = GetComponent<MouseResolver>();
         }
     }
 
@@ -44,12 +45,13 @@ public class PlayerController : MonoBehaviour
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             
-            Vector3? navPoint = m_navMeshMouseResolver.GetNavMeshPoint(mousePosition);
+            Vector3? navPoint = m_navMeshMouseResolver.GetNavMeshPoint();
             if (navPoint.HasValue)
             {
                 m_playerMovement.SetDestination(navPoint.Value);
             }
         }
+
     }
 
     private void SetupCursor()
