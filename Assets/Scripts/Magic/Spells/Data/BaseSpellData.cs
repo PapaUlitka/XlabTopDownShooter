@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts.Magic.Elements
+namespace Assets.Scripts.Magic.Spells.Data
 {
     public abstract class BaseSpellData : ScriptableObject
     {

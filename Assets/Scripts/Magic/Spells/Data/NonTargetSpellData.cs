@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts.Magic.Elements
+namespace Assets.Scripts.Magic.Spells.Data
 {
     [CreateAssetMenu(fileName = "NonTargetSpellData", menuName = "Xlab/Magic/Spells/NonTargetSpellData")]
     public class NonTargetSpellData : BaseSpellData

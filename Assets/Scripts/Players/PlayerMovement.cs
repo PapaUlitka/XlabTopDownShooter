@@ -76,6 +76,6 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         var targetRotate = Quaternion.LookRotation(direction, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotate, m_agent.angularSpeed);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotate, m_agent.angularSpeed * Time.deltaTime);
     }
 }

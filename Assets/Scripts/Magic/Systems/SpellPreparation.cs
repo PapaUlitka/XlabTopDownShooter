@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Magic.Data;
 using Assets.Scripts.Magic.Elements;
+using Assets.Scripts.Magic.Spells.Data;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts.Magic.Elements
+namespace Assets.Scripts.Magic.Spells.Data
 {
     [CreateAssetMenu(fileName = "AoeSpellData", menuName = "Xlab/Magic/Spells/Aoe Spell")]
     public class AoeSpellData : BaseSpellData

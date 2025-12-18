@@ -1,11 +1,12 @@
 ﻿using Assets.Scripts.Magic.Elements;
+using Assets.Scripts.Magic.Spells.Data;
 using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.Magic.Data
 {
     [CreateAssetMenu(fileName = "MagicConfig", menuName = "Xlab/Magic/Spells/MagicConfig")]
-    public class MagicConfig : ScriptableObject
+    public sealed class MagicConfig : ScriptableObject
     {
         [SerializeField] private ElementsData m_elementsData;
         [SerializeField] private SpellDatabase m_spellDatabase;

@@ -2,10 +2,10 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts.Magic.Elements
+namespace Assets.Scripts.Magic.Spells.Data
 {
-    [CreateAssetMenu(fileName = "SpellDatabase", menuName = "Xlab/Magic/Spells/SpellDatabase")]
-    public class SpellDatabase : ScriptableObject
+    [CreateAssetMenu(fileName = "SpellDatabase", menuName = "Xlab/Magic/Spells/Spell Database")]
+    public sealed class SpellDatabase : ScriptableObject
     {
         [SerializeField] private BaseSpellData[] m_spells;
 

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Magic.Elements;
+using Assets.Scripts.Magic.Spells.Data;
 using UnityEditor;
 using UnityEngine;
 
