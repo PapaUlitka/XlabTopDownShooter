@@ -19,7 +19,7 @@ namespace Assets.Scripts.Magic.Spells.Data
         public GameObject visualEffect => m_visualEffect;
 
         public IReadOnlyList<ElementType> combination => m_combination;
-
+        public IReadOnlyList<IEffect> effects => m_effects;
         private void OnValidate()
         {
             if (m_combination?.Length > 3)

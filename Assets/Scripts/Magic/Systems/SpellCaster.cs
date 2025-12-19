@@ -1,14 +1,17 @@
-﻿using Assets.Scripts.Magic.Elements;
+﻿using Assets.Scripts.Magic.Effects;
+using Assets.Scripts.Magic.Elements;
 using Assets.Scripts.Magic.Spells.Data;
+using System;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Magic.Systems
 {
-    public class SpellCaster
+    public sealed class SpellCaster
     {
 
-        private Transform m_casterTransform;
+        private readonly Transform m_casterTransform;
         public SpellCaster(Transform casterTransform)
         {
             m_casterTransform = casterTransform;
@@ -23,23 +26,67 @@ namespace Assets.Scripts.Magic.Systems
             {
                 case SelfSpellData selfSpell: CastSelf(selfSpell); break;
                 case TargetSpellData targetSpell: CastTarget(targetSpell, worldPosition); break;
-                case NonTargetSpellData nonTarget: CastNonTarget(nonTarget); break;
+                case NonTargetSpellData nonTargetSpell: CastNonTarget(nonTargetSpell); break;
                 case AoeSpellData aoeSpell:
                     {
-                        CastAoe(aoeSpell, aoeSpell.isTarget
-                            ? worldPosition
-                            : m_casterTransform.position);
-                        break;
+                        if (aoeSpell.isTarget)
+                        {
+                            CastAoe(aoeSpell, worldPosition);
+                        }
+                        else
+                        {
+                            CastAoe(aoeSpell, m_casterTransform.position);
+                        }
                     }
+                    break;
             }
         }
 
-        private void CastSelf(SelfSpellData spell) { }
-        private void CastTarget(TargetSpellData spell, Vector3 worldPosition)
+        private void CastSelf(SelfSpellData selfSpell)
         {
-            Debug.Log("Casting" + spell.name + "to" + worldPosition);
+            if (selfSpell.visualEffect)
+            {
+                Object.Instantiate(selfSpell, m_casterTransform.position, Quaternion.identity);
+            }
+
+            if(m_casterTransform.TryGetComponent<IEffectable>(out var effectable))
+            {
+                foreach(var effect in selfSpell.effects)
+                {
+                    effect.Apply(effectable);
+                }
+            }
         }
-        private void CastNonTarget(NonTargetSpellData spell) { }
-        private void CastAoe(AoeSpellData spell, Vector3 worldPosition) { }
+        private void CastTarget(TargetSpellData targetSpell, Vector3 worldPosition)
+        {
+            if (!targetSpell.visualEffect)
+            {
+                throw new NullReferenceException("Target spell must have visualEffect");
+            }
+
+            var projectile = Object.Instantiate(targetSpell.visualEffect, m_casterTransform.position, Quaternion.identity);
+
+            var spellProjectile =
+                projectile.GetComponent<ISpellProjectile>() ??
+                projectile.AddComponent<SpellProjectile>();
+
+            spellProjectile.Initialize(worldPosition, targetSpell.speed, targetSpell.effects);
+
+        }
+        private void CastNonTarget(NonTargetSpellData nonTargetSpell) { }
+        private void CastAoe(AoeSpellData aoeSpell, Vector3 worldPosition)
+        {
+            var aoe = aoeSpell.visualEffect
+                ? Object.Instantiate(aoeSpell.visualEffect, m_casterTransform.position, Quaternion.identity)
+                : new GameObject();
+
+            aoe.transform.position = worldPosition;
+
+            var spellAoe = 
+                aoe.GetComponent<ISpellAoe>() ??
+                aoe.AddComponent<SpellAoe>();
+
+            spellAoe.Initialize(worldPosition, aoeSpell.radius, aoeSpell.effects);
+        }
     }
 }

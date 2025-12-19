@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-namespace Assets.Scripts.Players
+namespace Assets.Scripts.Inputs
 {
     public class MouseResolver : MonoBehaviour
     {

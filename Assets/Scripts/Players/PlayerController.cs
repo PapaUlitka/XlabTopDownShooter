@@ -1,3 +1,4 @@
+using Assets.Scripts.Inputs;
 using Assets.Scripts.Players;
 using Magic.Systems;
 using UnityEngine;
@@ -8,9 +9,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerConfig m_config; 
-    [SerializeField] private MouseResolver m_navMeshMouseResolver;
+    [SerializeField] private MouseResolver m_mouseResolver;
     [SerializeField] private PlayerMovement m_playerMovement;
-    [SerializeField] private MagicInputHelper m_magicInput;
+    [SerializeField] private MagicInputHelper m_magicInputHelper;
 
     private PlayerRotationCalculator m_playerRotationCalculator;
 
@@ -20,9 +21,9 @@ public class PlayerController : MonoBehaviour
         {
             m_playerMovement = GetComponent<PlayerMovement>();
         }
-        if (!m_navMeshMouseResolver)
+        if (!m_mouseResolver)
         {
-            m_navMeshMouseResolver = GetComponent<MouseResolver>();
+            m_mouseResolver = GetComponent<MouseResolver>();
         }
     }
 
@@ -30,7 +31,6 @@ public class PlayerController : MonoBehaviour
     {
         var camera = Camera.main;
         m_playerMovement.Initialize(m_config.speed, m_config.angularSpeed);
-        m_navMeshMouseResolver.Initialize(Camera.main);
         m_playerRotationCalculator = new PlayerRotationCalculator(camera, transform);
 
         SetupCursor();
@@ -45,13 +45,13 @@ public class PlayerController : MonoBehaviour
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             
-            Vector3? navPoint = m_navMeshMouseResolver.GetNavMeshPoint();
+            Vector3? navPoint = m_mouseResolver.GetNavMeshPoint();
             if (navPoint.HasValue)
             {
                 m_playerMovement.SetDestination(navPoint.Value);
             }
         }
-
+        m_magicInputHelper.Update();
     }
 
     private void SetupCursor()

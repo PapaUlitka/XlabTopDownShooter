@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Magic.Data
 {
-    [CreateAssetMenu(fileName = "MagicConfig", menuName = "Xlab/Magic/Spells/MagicConfig")]
+    [CreateAssetMenu(fileName = "MagicConfig", menuName = "Xlab/Magic/MagicConfig")]
     public sealed class MagicConfig : ScriptableObject
     {
         [SerializeField] private ElementsData m_elementsData;
