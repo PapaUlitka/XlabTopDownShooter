@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e308a2dc83bcb41ba36f8f5db3e1ac, type: 3}
   m_Name: static_enemy_ranged_01
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  m_enemyType: 0
-  m_health: 0
+  m_enemyType: 1
+  m_health: 75
   m_speed: 0
   m_attackTime: 0
   m_attackRange: 0
