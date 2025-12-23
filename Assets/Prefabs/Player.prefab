@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 5171182939240844935}
   - component: {fileID: 838633592640896152}
   - component: {fileID: 235082978651856914}
+  - component: {fileID: 1354636260646312343}
   m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -230,11 +231,23 @@ MonoBehaviour:
   m_config: {fileID: 11400000, guid: a564693651ef56a43b02bb0336a19549, type: 2}
   m_elementsContainer: {fileID: 8328680897984245801}
   m_icons:
-  - {fileID: 8917256677149529461}
-  - {fileID: 5757261982683743177}
-  - {fileID: 4399810831093875590}
+  - {fileID: 1899410923749966694}
+  - {fileID: 3348851684303345114}
+  - {fileID: 6670712014490506645}
   m_shakeIntensity: 20
   m_shakeDuration: 1
+--- !u!114 &1354636260646312343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7721279208395481037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6a93cb27cbd824a9676d8fcca53860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FixedRotation
 --- !u!1 &8268842883819790225
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,13 +604,13 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2553611531969515105, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
   m_PrefabInstance: {fileID: 3418339954377274488}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4399810831093875590 stripped
+--- !u!114 &6670712014490506645 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1332826552289392638, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8350591974101590509, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
   m_PrefabInstance: {fileID: 3418339954377274488}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -699,13 +712,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
---- !u!114 &5757261982683743177 stripped
+--- !u!114 &3348851684303345114 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1332826552289392638, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8350591974101590509, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
   m_PrefabInstance: {fileID: 6744916650234164279}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -812,19 +825,19 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+--- !u!114 &1899410923749966694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8350591974101590509, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+  m_PrefabInstance: {fileID: 7619900370240709259}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!224 &5390548356159433962 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2553611531969515105, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
   m_PrefabInstance: {fileID: 7619900370240709259}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8917256677149529461 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1332826552289392638, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
-  m_PrefabInstance: {fileID: 7619900370240709259}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
