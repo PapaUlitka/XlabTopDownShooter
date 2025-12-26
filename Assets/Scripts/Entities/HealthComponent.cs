@@ -12,7 +12,7 @@ namespace Assets.Scripts.Entities
 
         private float m_value;
         private bool m_initialized;
-        public float Value
+        public float value
         {
             get => m_value;
             private set
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Entities
 
             m_value = value;
             m_initialized = true;
-        }
+        }   
 
         public void Heal(float heal)
         {
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Entities
                 throw new ArgumentOutOfRangeException(nameof(heal), heal, "Heal cannot be negative");
             }
 
-            Value += heal;
+            value += heal;
 
 
         }
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Entities
                 throw new ArgumentOutOfRangeException(nameof(damage), damage, "Damage cannot be negative");
             }
 
-            Value -= damage;
+            value -= damage;
         }
     }
 }

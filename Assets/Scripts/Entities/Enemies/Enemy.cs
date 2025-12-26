@@ -26,7 +26,7 @@ namespace Assets.Scripts.Entities.Enemies
         {
             m_health.ValueChanged += () =>
             {
-                Debug.Log($"Health Changed: {m_health.Value}");
+                Debug.Log($"Health Changed: {m_health.value}");
             };
             m_health.Died += OnDied;
         }
