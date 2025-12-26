@@ -1,6 +1,7 @@
 using Assets.Scripts.Magic.Effects;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -45,9 +46,6 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
         }
     }
 
-    private void SetLinearVelocity() =>
-        m_rigidbody.linearVelocity = m_direction * m_speed;
-
     private void OnTriggerEnter(Collider other)
     {
         if (!m_initialized) return;
@@ -67,6 +65,20 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
         foreach(var effect in m_effects)
         {
             effect?.Apply(target);
+        }
+    }
+
+    private void ApplyEffects(IReadOnlyCollection<IEffectable> effectables)
+    {
+        if (m_effects is null) return;
+
+        foreach (var effect in m_effects)
+        {
+            foreach(var effectable  in effectables)
+            {
+                effect?.Apply(effectable);
+            }
+
         }
     }
 
@@ -91,5 +103,14 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
         SetLinearVelocity();
     }
 
+    private void SetLinearVelocity() =>
+    m_rigidbody.linearVelocity = m_direction * m_speed;
 
+    //public static class EffectExtensions
+    //{
+    //    public static void ApplyEffects(this IReadOnlyCollection<IEffect> effects, IReadOnlyCollection<IEffectable> effectables)
+    //    {
+
+    //    }
+    //}
 }
