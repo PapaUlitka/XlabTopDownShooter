@@ -47,6 +47,7 @@ namespace Assets.Scripts.Magic.Systems
             if (selfSpell.visualEffect)
             {
                 Object.Instantiate(selfSpell, m_casterTransform.position, Quaternion.identity);
+                
             }
 
             if(m_casterTransform.TryGetComponent<IEffectable>(out var effectable))
@@ -65,7 +66,7 @@ namespace Assets.Scripts.Magic.Systems
             }
 
             var projectile = Object.Instantiate(targetSpell.visualEffect, m_casterTransform.position, Quaternion.identity);
-
+            SetLayer(projectile);
             var spellProjectile =
                 projectile.GetComponent<ISpellProjectile>() ??
                 projectile.AddComponent<SpellProjectile>();
@@ -79,7 +80,7 @@ namespace Assets.Scripts.Magic.Systems
             var aoe = aoeSpell.visualEffect
                 ? Object.Instantiate(aoeSpell.visualEffect, m_casterTransform.position, Quaternion.identity)
                 : new GameObject();
-
+            SetLayer(aoe);
             aoe.transform.position = worldPosition;
 
             var spellAoe = 
@@ -88,5 +89,6 @@ namespace Assets.Scripts.Magic.Systems
 
             spellAoe.Initialize(worldPosition, aoeSpell.radius, aoeSpell.effects);
         }
+        private void SetLayer(GameObject visualEffect) => visualEffect.layer = m_casterTransform.gameObject.layer;
     }
 }

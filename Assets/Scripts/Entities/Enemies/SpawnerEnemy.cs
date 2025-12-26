@@ -8,8 +8,13 @@ namespace Assets.Scripts.Entities.Enemies
         [SerializeField] private EnemyData[] m_data;
         [SerializeField] private Transform[] m_spawnPoints;
         [SerializeField] private Enemy[] m_enemies;
+        [SerializeField] private Transform m_playerTransform;
 
-
+        //TODO Xlab - Remove
+        private void Start()
+        {
+            Spawn();
+        }
         public void Spawn()
         {
             foreach(var spawnPoint in m_spawnPoints)
@@ -18,7 +23,7 @@ namespace Assets.Scripts.Entities.Enemies
                 var enemyData = GetEnemyData();
 
                 var enemyInstance = Instantiate(enemy, spawnPoint);
-                enemyInstance.Initialize(enemyData);
+                enemyInstance.Initialize(enemyData, m_playerTransform);
 
                 enemyInstance.Died += OnDied;
             }
@@ -26,6 +31,7 @@ namespace Assets.Scripts.Entities.Enemies
 
         private void OnDied(Enemy enemy)
         {
+            enemy.Died -= OnDied;
             Destroy(enemy.gameObject);
         }
 

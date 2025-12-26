@@ -14799,7 +14799,7 @@ GameObject:
   - component: {fileID: -866739759695313640}
   - component: {fileID: 4491011533927185869}
   m_Layer: 0
-  m_Name: FireballMuzzleRed
+  m_Name: FireballlEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

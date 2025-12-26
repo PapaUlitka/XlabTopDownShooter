@@ -52,7 +52,7 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
     {
         if (!m_initialized) return;
 
-        if (other.GetComponent<PlayerController>()) return;
+
 
         if (other.TryGetComponent<IEffectable>(out var effectable))
             ApplyEffects(effectable);

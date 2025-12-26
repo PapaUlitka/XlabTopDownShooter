@@ -1,3 +1,4 @@
+using Assets.Scripts.Magic.Spells.Data;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Xlab/Enemies/Enemy")]
@@ -10,6 +11,7 @@ public class EnemyData : ScriptableObject
     [SerializeField] [Range(0f, 100f)] private float m_speed;
 
     [Header("Attack")]
+    [SerializeField] private BaseSpellData m_spell;
     [SerializeField] [Min(0)] private float m_attackTime;
     [SerializeField] [Min(0)] private float m_attackRange;
 
@@ -20,6 +22,7 @@ public class EnemyData : ScriptableObject
     public float speed => m_speed;
     public float attackTime => m_attackTime;
     public float attackRange => m_attackRange;
+    public BaseSpellData spell => m_spell;
 }
 
 public enum AttackEnemyType

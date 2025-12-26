@@ -15,5 +15,6 @@ MonoBehaviour:
   m_enemyType: 1
   m_health: 75
   m_speed: 0
-  m_attackTime: 0
-  m_attackRange: 0
+  m_spell: {fileID: 11400000, guid: 1b33b6fadd6947145843d656a5011b08, type: 2}
+  m_attackTime: 2
+  m_attackRange: 10

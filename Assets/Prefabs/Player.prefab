@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3150439031581951998}
   - component: {fileID: 8965543850576761542}
   - component: {fileID: 61916679062292278}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 838633592640896152}
   - component: {fileID: 235082978651856914}
   - component: {fileID: 1354636260646312343}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: PlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8328680897984245801}
   - component: {fileID: 2142120738581550689}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: PreparationView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 3250709453922083910}
   - component: {fileID: 8029199587927139682}
   - component: {fileID: 6564890954701524313}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,6 +514,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PreparationElement (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2319740882714639240, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2553611531969515105, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -593,6 +597,10 @@ PrefabInstance:
     - target: {fileID: 2553611531969515105, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990246674847739390, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -627,6 +635,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PreparationElement (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2319740882714639240, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2553611531969515105, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -706,6 +718,10 @@ PrefabInstance:
     - target: {fileID: 2553611531969515105, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990246674847739390, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -740,6 +756,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PreparationElement (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2319740882714639240, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2553611531969515105, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -819,6 +839,10 @@ PrefabInstance:
     - target: {fileID: 2553611531969515105, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5990246674847739390, guid: 730e8a1fafba39f4d9828ac531a8d413, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
