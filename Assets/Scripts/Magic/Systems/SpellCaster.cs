@@ -46,9 +46,11 @@ namespace Assets.Scripts.Magic.Systems
         {
             if (selfSpell.visualEffect)
             {
-                Object.Instantiate(selfSpell, m_casterTransform.position, Quaternion.identity);
-                
+                var visualEffect = Object.Instantiate(selfSpell.visualEffect, m_casterTransform.position, Quaternion.identity);
+                SetLayer(visualEffect);
+                 
             }
+
 
             if(m_casterTransform.TryGetComponent<IEffectable>(out var effectable))
             {

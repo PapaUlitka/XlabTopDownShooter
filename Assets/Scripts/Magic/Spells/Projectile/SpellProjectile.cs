@@ -50,36 +50,9 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
     {
         if (!m_initialized) return;
 
-
-
-        if (other.TryGetComponent<IEffectable>(out var effectable))
-            ApplyEffects(effectable);
+        m_effects.ApplyEffects(other.GetComponents<IEffectable>());
 
         Destroy(gameObject);
-    }
-
-    private void ApplyEffects(IEffectable target)
-    {
-        if (m_effects is null) return;
-
-        foreach(var effect in m_effects)
-        {
-            effect?.Apply(target);
-        }
-    }
-
-    private void ApplyEffects(IReadOnlyCollection<IEffectable> effectables)
-    {
-        if (m_effects is null) return;
-
-        foreach (var effect in m_effects)
-        {
-            foreach(var effectable  in effectables)
-            {
-                effect?.Apply(effectable);
-            }
-
-        }
     }
 
     public void Initialize(Vector3 targetPosition, float speed, IReadOnlyList<IEffect> effects)
@@ -106,11 +79,5 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
     private void SetLinearVelocity() =>
     m_rigidbody.linearVelocity = m_direction * m_speed;
 
-    //public static class EffectExtensions
-    //{
-    //    public static void ApplyEffects(this IReadOnlyCollection<IEffect> effects, IReadOnlyCollection<IEffectable> effectables)
-    //    {
 
-    //    }
-    //}
 }
