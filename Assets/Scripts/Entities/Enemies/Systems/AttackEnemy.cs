@@ -24,7 +24,7 @@ namespace Assets.Scripts.Entities.Enemies.Systems
             m_spell = spell;
             m_attackTime = attackTime;
             m_target = target;
-            m_spellCaster = new SpellCaster(transform);
+            m_spellCaster = new SpellCaster(transform, true);
 
             m_isInitialized = true;
         }

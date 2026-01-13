@@ -12,6 +12,7 @@ namespace Assets.Scripts.Entities.Enemies
 
         [SerializeField] private HealthComponent m_health;
         [SerializeField] private AttackEnemy m_attack;
+        [SerializeField] private EnemyMovement m_movement;
 
         private EnemyData m_data;
         private EnemyStateMachine m_stateMachine;
@@ -48,10 +49,14 @@ namespace Assets.Scripts.Entities.Enemies
             m_data = data;
             m_health.Initialize(data.health);
             m_attack.Initialize(data.spell, data.attackTime, playerTransform);
-
+            m_movement.Initialized(data.speed, playerTransform);
             m_playerTransform = playerTransform;
             m_stateMachine??= new EnemyStateMachine();
            
+            if (data.enemyType == AttackEnemyType.Melee)
+            {
+                m_stateMachine.ChangeState(EnemyState.Move);
+            }
         }
         private void UpdateState()
         {
@@ -60,7 +65,7 @@ namespace Assets.Scripts.Entities.Enemies
             switch (m_stateMachine.currentState)
             {
                 case EnemyState.Idle: HandleIdleState(isInAttackRange); break;
-
+                case EnemyState.Move: HandleMoveState(isInAttackRange); break;
                 case EnemyState.Attack: HandleAttackState(isInAttackRange); break;
             }
         }
@@ -71,6 +76,15 @@ namespace Assets.Scripts.Entities.Enemies
                 m_stateMachine.ChangeState(EnemyState.Attack);
             }
         }
+
+        private void HandleMoveState(bool isInAttackRange)
+        {
+            if(isInAttackRange)
+            {
+                m_stateMachine.ChangeState(EnemyState.Attack);
+            }
+        }
+
         private void HandleAttackState(bool isInAttackRange)
         {
             m_attack.TryAttack();
@@ -102,7 +116,14 @@ namespace Assets.Scripts.Entities.Enemies
         }
         private void OnStateChanged(EnemyState previousState, EnemyState nextState)
         {
-            //TODO AddMovement
+            if(previousState is EnemyState.Move)
+            {
+                m_movement.StopMoving();
+            }
+            if(nextState is EnemyState.Move)
+            {
+                m_movement.StartMoving();
+            }
         }
     }
 }
