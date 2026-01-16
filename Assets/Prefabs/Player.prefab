@@ -962,6 +962,7 @@ GameObject:
   - component: {fileID: 3250709453922083910}
   - component: {fileID: 8029199587927139682}
   - component: {fileID: 6564890954701524313}
+  - component: {fileID: 2491558078087279477}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1136,6 +1137,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Magic.Systems.MagicSystem
   m_config: {fileID: 11400000, guid: a564693651ef56a43b02bb0336a19549, type: 2}
   m_mouseResolver: {fileID: 0}
+--- !u!114 &2491558078087279477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8649808544660375308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3cd9ec2524756545b1219acc9e52a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Entities.HealthComponent
 --- !u!1 &8684873880243508227
 GameObject:
   m_ObjectHideFlags: 0
