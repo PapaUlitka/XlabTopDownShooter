@@ -1,0 +1,30 @@
+﻿using System;
+using UnityEditor;
+using UnityEngine;
+
+namespace Assets.Scripts.Magic.Buffs.Base
+{
+    [Serializable]
+    public abstract class TimedBuff : BaseBuff
+    {
+        [SerializeField] private float m_duration;
+
+        [NonSerialized] private float m_timer;
+
+        protected override void OnDeInitializing() => m_timer = 0;
+        public sealed override void Update(float deltaTime)
+        {
+            if(m_timer < m_duration)
+            {
+                OnUpdated(deltaTime);
+                m_timer += deltaTime;
+            }
+            else
+            {
+                DeInitialize();
+            }
+        }
+
+        protected virtual void OnUpdated(float deltaTime) { }
+    }
+}

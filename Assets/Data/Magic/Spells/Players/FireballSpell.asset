@@ -17,10 +17,23 @@ MonoBehaviour:
   m_combination: 00000000
   m_effects:
   - rid: 6427902490253721838
+  - rid: 2934264948658012223
   m_speed: 25
   references:
     version: 2
     RefIds:
+    - rid: 2934264948658012223
+      type: {class: BuffEffect, ns: Assets.Scripts.Magic.Effects, asm: Assembly-CSharp}
+      data:
+        m_buffs:
+        - rid: 2934264948658012224
+    - rid: 2934264948658012224
+      type: {class: PoisonDebuff, ns: Assets.Scripts.Magic.Buffs.Impls, asm: Assembly-CSharp}
+      data:
+        <Id>k__BackingField: Poison
+        m_duration: 25
+        m_interval: 1
+        m_damagedPerSeconds: 2
     - rid: 6427902490253721838
       type: {class: AttackEffect, ns: Assets.Scripts.Magic.Effects, asm: Assembly-CSharp}
       data:
