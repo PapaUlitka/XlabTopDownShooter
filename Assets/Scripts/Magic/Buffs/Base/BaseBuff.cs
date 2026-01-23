@@ -13,7 +13,7 @@ namespace Assets.Scripts.Magic.Buffs.Base
         public string Id { get; private set; }
 
         protected BuffContainer container { get; private set; }
-
+        
         public BaseBuff() { }
 
         protected BaseBuff(string id)

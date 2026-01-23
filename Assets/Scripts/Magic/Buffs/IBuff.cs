@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Magic.Buffs
 {
-    public interface IBuff
+    public interface IBuff : ICloneable
     {
         public string Id { get; }
 

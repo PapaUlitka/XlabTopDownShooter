@@ -17,7 +17,7 @@ namespace Assets.Scripts.Magic.Effects
             {
                 foreach(var buff in m_buffs)
                 {
-                    //container.Add(buff.Clone());
+                    container.Add(buff.Clone() as IBuff);
                 }
 
             }

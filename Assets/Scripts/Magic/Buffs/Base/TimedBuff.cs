@@ -11,6 +11,14 @@ namespace Assets.Scripts.Magic.Buffs.Base
 
         [NonSerialized] private float m_timer;
 
+        protected float duration => m_duration;
+
+        public TimedBuff() { }
+
+        protected TimedBuff(string id, float duration) : base(id)
+        {
+            m_duration = duration;
+        }
         protected override void OnDeInitializing() => m_timer = 0;
         public sealed override void Update(float deltaTime)
         {

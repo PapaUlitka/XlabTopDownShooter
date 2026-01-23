@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     public PlayerConfig Config => m_config;
 
+    public HealthComponent Health => m_health;
+
     private void OnValidate()
     {
         if (!m_playerMovement)

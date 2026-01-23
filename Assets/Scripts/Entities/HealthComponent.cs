@@ -23,13 +23,15 @@ namespace Assets.Scripts.Entities
                 }
 
                 m_value = value < 0 ? 0 : value;
-
+                ValueChanged?.Invoke();
                 if (m_value is 0)
                 {
                     Died?.Invoke();
                 }
             }
         }
+
+        public float maxValue { get; private set; }
 
         public void Initialize(float value)
         {
@@ -38,7 +40,8 @@ namespace Assets.Scripts.Entities
                 throw new InvalidOperationException("HealthComponent is already initialize");
             }
 
-            m_value = value;
+            this.value = value;
+            maxValue = value;
             m_initialized = true;
         }   
 

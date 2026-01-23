@@ -15,6 +15,19 @@ namespace Assets.Scripts.Magic.Buffs.Impls
 
         [NonSerialized] private float m_timer;
         private IHealth m_health;
+
+        public PoisonDebuff() { }
+
+        public PoisonDebuff(
+            string id, 
+            float duration,
+            float interval,
+            float damagePerSeconds) : base(id, duration)
+        {
+            m_interval = interval;
+            m_damagedPerSeconds = damagePerSeconds;
+        }
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -44,9 +57,6 @@ namespace Assets.Scripts.Magic.Buffs.Impls
             }
         }
 
-        public override object Clone()
-        {
-            throw new NotImplementedException();
-        }
+        public override object Clone() => new PoisonDebuff(Id, duration, m_interval, m_damagedPerSeconds);
     }
 }

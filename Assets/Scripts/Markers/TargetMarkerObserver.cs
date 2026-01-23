@@ -16,7 +16,8 @@ namespace Assets.Scripts.Markers
 
         private void OnDisable()
         {
-            
+            m_playerMovement.Stopped -= OnPlayerStopped;
+            m_playerMovement.DestinationChanged -= OnDestinationChanged;
         }
 
         private void OnPlayerStopped()
