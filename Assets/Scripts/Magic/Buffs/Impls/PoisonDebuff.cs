@@ -57,6 +57,6 @@ namespace Assets.Scripts.Magic.Buffs.Impls
             }
         }
 
-        public override object Clone() => new PoisonDebuff(Id, duration, m_interval, m_damagedPerSeconds);
+        public override IBuff Clone() => new PoisonDebuff(Id, duration, m_interval, m_damagedPerSeconds);
     }
 }

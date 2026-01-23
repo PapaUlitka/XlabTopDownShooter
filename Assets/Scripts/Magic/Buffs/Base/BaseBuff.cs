@@ -40,6 +40,6 @@ namespace Assets.Scripts.Magic.Buffs.Base
 
         public virtual void Update(float deltaTime) { }
 
-        public abstract object Clone();
+        public abstract IBuff Clone();
     }
 }

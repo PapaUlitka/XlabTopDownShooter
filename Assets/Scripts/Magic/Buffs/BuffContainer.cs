@@ -17,6 +17,7 @@ namespace Assets.Scripts.Magic.Buffs
             if (m_buffs.TryGetValue(buff.Id, out IBuff existingBuff))
             {
                 existingBuff.Refresh(this);
+                m_ids.Remove(existingBuff.Id);
             }
             else
             {
