@@ -48,7 +48,7 @@ namespace Assets.Scripts.Entities.Enemies
         {
             m_data = data;
             m_health.Initialize(data.health);
-            m_attack.Initialize(data.spell, data.attackTime, playerTransform);
+            //m_attack.Initialize(data.spell, data.attackTime, playerTransform);
             m_movement.Initialized(data.speed, playerTransform);
             m_playerTransform = playerTransform;
             m_stateMachine??= new EnemyStateMachine();
