@@ -1,43 +1,71 @@
-﻿using UnityEditor;
+﻿using Assets.Scripts.Infrastructure;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.Entities.Enemies
 {
     public class SpawnerEnemy : MonoBehaviour
     {
+        [SerializeField] private Enemy[] m_enemies;
         [SerializeField] private EnemyData[] m_data;
         [SerializeField] private Transform[] m_spawnPoints;
-        [SerializeField] private Enemy[] m_enemies;
-        [SerializeField] private Transform m_playerTransform;
 
-        //TODO Xlab - Remove
-        private void Start()
-        {
-            Spawn();
-        }
+        private List<Enemy> m_currentEnemies = new();
+
         public void Spawn()
         {
-            foreach(var spawnPoint in m_spawnPoints)
+            var factory = ServiceLocator
+                .Resolve<IPlayerFactorySettings>();
+            factory.position = Vector3.negativeInfinity;
+
+            var playerTransform = ServiceLocator
+                .Resolve<IPlayerFactory>()
+                .Create()
+                .transform;
+
+            foreach (var spawnPoint in m_spawnPoints)
             {
                 var enemy = GetEnemy();
                 var enemyData = GetEnemyData();
 
                 var enemyInstance = Instantiate(enemy, spawnPoint);
-                enemyInstance.Initialize(enemyData, m_playerTransform);
+                enemyInstance.Initialize(enemyData, playerTransform);
 
                 enemyInstance.Died += OnDied;
+                m_currentEnemies.Add(enemyInstance);
             }
+        }
+
+        public void DespawnAll()
+        {
+            foreach (var enemy in m_currentEnemies)
+            {
+                DestroyEnemy(enemy);
+            }
+
+            m_currentEnemies.Clear();
         }
 
         private void OnDied(Enemy enemy)
         {
-            enemy.Died -= OnDied;
-            Destroy(enemy.gameObject);
+            m_currentEnemies.Remove(enemy);
+            DestroyEnemy(enemy);
         }
 
-        private Enemy GetEnemy() => m_enemies[Random.Range(0, m_enemies.Length)];
+        private Enemy GetEnemy() =>
+            m_enemies[Random.Range(0, m_enemies.Length)];
 
-        private EnemyData GetEnemyData() => m_data[Random.Range(0, m_data.Length)];
+        private EnemyData GetEnemyData() =>
+            m_data[Random.Range(0, m_data.Length)];
 
+        private void DestroyEnemy(Enemy enemy)
+        {
+            if (enemy)
+            {
+                enemy.Died -= OnDied;
+                Destroy(enemy.gameObject);
+            }
+        }
     }
 }

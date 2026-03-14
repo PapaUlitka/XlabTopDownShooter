@@ -1,9 +1,9 @@
-﻿using UnityEditor;
+﻿    using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.Magic.Spells.Data
 {
-    [CreateAssetMenu(fileName = "NonTargetSpellData", menuName = "Xlab/Magic/Spells/NonTargetSpellData")]
+    [CreateAssetMenu(fileName = "NonTargetSpellData", menuName = "XLab/Magic/Spells/Non Target Spell")]
     public class NonTargetSpellData : BaseSpellData
     {
         [SerializeField][Min(0)] private float m_range;

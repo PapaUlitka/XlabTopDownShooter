@@ -1,9 +1,10 @@
+using Assets.Scripts.Entities;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IAcceleration
 {
     public event Action Stopped;
     public event Action<Vector3> DestinationChanged;
@@ -11,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private NavMeshAgent m_agent;
 
     private float m_speed;
-    private float m_angularSpeed;
+    private float m_acceleration;
+    private float m_andgularSpeed;
     private bool m_hasDestination;
 
     private void OnValidate()
@@ -22,10 +24,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        Initialize(m_speed, m_angularSpeed);
-    }
+    private void Awake() =>
+        Initialize(m_speed, m_andgularSpeed);
 
     private void Update()
     {
@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
             if (!m_agent.hasPath || m_agent.velocity.sqrMagnitude <= 0.001f)
             {
                 m_agent.isStopped = false;
-
                 Stopped?.Invoke();
             }
         }
@@ -48,19 +47,35 @@ public class PlayerMovement : MonoBehaviour
     public void Initialize(float speed, float angularSpeed)
     {
         m_speed = speed;
-        m_angularSpeed = angularSpeed;
+        m_andgularSpeed = angularSpeed;
 
         m_agent.speed = speed;
         m_agent.angularSpeed = angularSpeed;
 
         m_agent.updateRotation = false;
+    }
 
+    public void IncreaseAcceleration(float delta)
+    {
+        if (delta < 0)
+            throw new ArgumentException("Delta cannot be negative", nameof(delta));
+
+        m_acceleration += delta;
+        SetSpeed();
+    }
+
+    public void DecreaseAcceleration(float delta)
+    {
+        if (delta < 0)
+            throw new ArgumentException("Delta cannot be negative", nameof(delta));
+
+        m_acceleration -= delta;
+        SetSpeed();
     }
 
     public void SetDestination(Vector3 navMeshPoint)
     {
         m_agent.SetDestination(navMeshPoint);
-
         m_hasDestination = true;
 
         DestinationChanged?.Invoke(navMeshPoint);
@@ -75,7 +90,17 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+
         var targetRotate = Quaternion.LookRotation(direction, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotate, m_agent.angularSpeed * Time.deltaTime);
+    }
+
+    private void SetSpeed()
+    {
+        var acceleration = m_acceleration > 0
+            ? m_acceleration
+            : 1;
+
+        m_agent.speed = m_speed * acceleration;
     }
 }

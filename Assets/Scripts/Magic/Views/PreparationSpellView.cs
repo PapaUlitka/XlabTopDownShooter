@@ -26,27 +26,30 @@ public sealed class PreparationSpellView : MonoBehaviour
 
     private void OnEnable()
     {
-        m_magicSystem.ElementChanged += UpdateIcons;
+        m_magicSystem.ElementsChanged += UpdateIcons;
         m_magicSystem.SpellCancelled += ShakeContainer;
     }
+
     private void OnDisable()
     {
-        m_magicSystem.ElementChanged -= UpdateIcons;
+        m_magicSystem.ElementsChanged -= UpdateIcons;
         m_magicSystem.SpellCancelled -= ShakeContainer;
     }
+
     private void UpdateIcons(IReadOnlyList<ElementType> elements)
     {
-        foreach(var icon in m_icons)
+        foreach (var icon in m_icons)
         {
             icon.sprite = null;
             icon.enabled = false;
         }
+
         if (elements is null || elements.Count is 0)
         {
             return;
         }
 
-        for(var i = 0; i < elements.Count; i++)
+        for (var i = 0; i < elements.Count; i++)
         {
             var elementInfo = GetElementInfo(elements[i]);
 
@@ -54,6 +57,7 @@ public sealed class PreparationSpellView : MonoBehaviour
             m_icons[i].sprite = elementInfo.icon;
         }
     }
+
     private void ShakeContainer()
     {
         m_shakeTween?.Kill();

@@ -15,19 +15,19 @@ namespace Assets.Scripts.Magic.Systems
         private readonly Transform m_casterTransform;
         private ObjectPool<GameObject> m_visualEffectPool;
 
-
-
         public SpellCaster(Transform casterTransform, bool isSingleSpell = false)
         {
             m_isSingleSpell = isSingleSpell;
             m_casterTransform = casterTransform;
         }
+
         public void Cast(BaseSpellData spell, Vector3 worldPosition)
         {
             if (!spell)
             {
                 return;
             }
+
             switch (spell)
             {
                 case SelfSpellData selfSpell: CastSelf(selfSpell); break;
@@ -54,12 +54,12 @@ namespace Assets.Scripts.Magic.Systems
             {
                 var visualEffect = Object.Instantiate(selfSpell.visualEffect, m_casterTransform.position, Quaternion.identity);
                 SetLayer(visualEffect);
-                 
             }
+
             var effectables = m_casterTransform.GetComponents<IEffectable>();
             selfSpell.effects.ApplyEffects(effectables);
-
         }
+
         private void CastTarget(TargetSpellData targetSpell, Vector3 worldPosition)
         {
             if (!targetSpell.visualEffect)
@@ -69,17 +69,23 @@ namespace Assets.Scripts.Magic.Systems
 
             var projectile = Object.Instantiate(targetSpell.visualEffect, m_casterTransform.position, Quaternion.identity);
             SetLayer(projectile);
+
             var spellProjectile =
                 projectile.GetComponent<ISpellProjectile>() ??
                 projectile.AddComponent<SpellProjectile>();
 
             spellProjectile.Initialize(worldPosition, targetSpell.speed, targetSpell.effects);
-
         }
-        private void CastNonTarget(NonTargetSpellData nonTargetSpell) { }
+
+        private void CastNonTarget(NonTargetSpellData nonTargetSpell)
+        {
+            // Разберем на уроке. 
+        }
+
         private void CastAoe(AoeSpellData aoeSpell, Vector3 worldPosition)
         {
             GameObject aoe;
+
             if (m_isSingleSpell)
             {
                 m_visualEffectPool ??= new ObjectPool<GameObject>(
@@ -98,7 +104,7 @@ namespace Assets.Scripts.Magic.Systems
             SetLayer(aoe);
             aoe.transform.position = worldPosition;
 
-            var spellAoe = 
+            var spellAoe =
                 aoe.GetComponent<ISpellAoe>() ??
                 aoe.AddComponent<SpellAoe>();
 
@@ -110,18 +116,19 @@ namespace Assets.Scripts.Magic.Systems
             }
             else
             {
-                Object.Destroy(aoe);
+                Object.Destroy(aoe, t: 1);
             }
             return;
 
-
-                GameObject Create()
-                {
-                    return aoeSpell.visualEffect
-                        ? Object.Instantiate(aoeSpell.visualEffect, m_casterTransform.position, Quaternion.identity)
+            GameObject Create()
+            {
+                return aoeSpell.visualEffect
+                    ? Object.Instantiate(aoeSpell.visualEffect, m_casterTransform.position, Quaternion.identity)
                     : new GameObject();
             }
         }
-        private void SetLayer(GameObject visualEffect) => visualEffect.layer = m_casterTransform.gameObject.layer;
+
+        private void SetLayer(GameObject visualEffect) =>
+            visualEffect.layer = m_casterTransform.gameObject.layer;
     }
 }

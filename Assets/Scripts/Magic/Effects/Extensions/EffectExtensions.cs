@@ -2,9 +2,11 @@ using Assets.Scripts.Magic.Effects;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class EffectExtensions
+public static class EffectsExtensions
 {
-    public static void ApplyEffects(this IReadOnlyCollection<IEffect> effects, IEffectable effectable)
+    public static void ApplyEffects(
+        this IReadOnlyCollection<IEffect> effects,
+        IEffectable effectable)
     {
         if (effects is null) return;
 
@@ -13,7 +15,10 @@ public static class EffectExtensions
             effect?.Apply(effectable);
         }
     }
-    public static void ApplyEffects(this IReadOnlyCollection<IEffect> effects, IReadOnlyCollection<IEffectable> effectables)
+
+    public static void ApplyEffects(
+        this IReadOnlyCollection<IEffect> effects,
+        IReadOnlyCollection<IEffectable> effectables)
     {
         if (effects is null) return;
 
@@ -23,7 +28,6 @@ public static class EffectExtensions
             {
                 effect?.Apply(effectable);
             }
-
         }
     }
 }

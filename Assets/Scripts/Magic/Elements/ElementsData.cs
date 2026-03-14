@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Magic.Elements
 {
-    [CreateAssetMenu(fileName = "ElementsData", menuName = "Xlab/Magic/Elements Data", order = 0)]
+    [CreateAssetMenu(fileName = "ElementsData", menuName = "XLab/Magic/Elements Data", order = 0)]
     public sealed class ElementsData : ScriptableObject
     {
         [SerializeField] private Item[] m_items;
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Magic.Elements
 
             public ElementType type => m_type;
 
-            public string elemnetName => m_elementName;
+            public string elementName => m_elementName;
         }
     }
 }

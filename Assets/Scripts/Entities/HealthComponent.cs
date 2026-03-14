@@ -12,6 +12,7 @@ namespace Assets.Scripts.Entities
 
         private float m_value;
         private bool m_initialized;
+
         public float value
         {
             get => m_value;
@@ -23,6 +24,7 @@ namespace Assets.Scripts.Entities
                 }
 
                 m_value = value < 0 ? 0 : value;
+                ValueChanged?.Invoke();
 
                 if (m_value is 0)
                 {
@@ -31,35 +33,32 @@ namespace Assets.Scripts.Entities
             }
         }
 
+        public float maxValue { get; private set; }
+
         public void Initialize(float value)
         {
-            if (!m_initialized)
+            if (m_initialized)
             {
-                throw new InvalidOperationException("HealthComponent is already initialize");
+                throw new InvalidOperationException("HealthComponent is already initialized");
             }
 
-            m_value = value;
+            maxValue = value;
+            this.value = value;
             m_initialized = true;
-        }   
+        }
 
         public void Heal(float heal)
         {
             if (heal < 0)
-            {
                 throw new ArgumentOutOfRangeException(nameof(heal), heal, "Heal cannot be negative");
-            }
 
             value += heal;
-
-
         }
 
         public void TakeDamage(float damage)
         {
             if (damage < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(damage), damage, "Damage cannot be negative");
-            }
+                throw new ArgumentOutOfRangeException(nameof(damage), damage, "Heal cannot be negative");
 
             value -= damage;
         }

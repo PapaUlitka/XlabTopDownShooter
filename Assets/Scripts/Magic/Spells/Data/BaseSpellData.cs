@@ -14,12 +14,15 @@ namespace Assets.Scripts.Magic.Spells.Data
 
         [SerializeReferenceDropdown]
         [SerializeReference] private IEffect[] m_effects;
+
         public string spellName => m_spellName;
 
         public GameObject visualEffect => m_visualEffect;
 
-        public IReadOnlyList<ElementType> combination => m_combination;
         public IReadOnlyList<IEffect> effects => m_effects;
+
+        public IReadOnlyList<ElementType> combination => m_combination;
+
         private void OnValidate()
         {
             if (m_combination?.Length > 3)

@@ -8,7 +8,6 @@ namespace Assets.Scripts.Markers
     public class AimLineMarker : MonoBehaviour
     {
         [Header("Components")]
-        [SerializeField] private Transform m_playerTransform;
         [SerializeField] private LineRenderer m_lineRenderer;
         [SerializeField] private MouseResolver m_mouseResolver;
 
@@ -17,6 +16,8 @@ namespace Assets.Scripts.Markers
         [SerializeField][Min(0)] private float m_lineWidth = 0.1f;
         [SerializeField][Min(0)] private float m_disableDistance = 1f;
 
+        private Transform m_playerTransform;
+
         private void OnValidate()
         {
             if (!m_lineRenderer)
@@ -24,14 +25,21 @@ namespace Assets.Scripts.Markers
                 m_lineRenderer = GetComponent<LineRenderer>();
             }
         }
+
         private void Awake()
         {
             m_lineRenderer.positionCount = 2;
             m_lineRenderer.startWidth = m_lineWidth;
             m_lineRenderer.endWidth = m_lineWidth;
         }
+
         private void LateUpdate()
         {
+            if (m_playerTransform is null)
+            {
+                return;
+            }
+
             var playerPos = m_playerTransform.position;
             var end = GetAimPosition();
 
@@ -42,9 +50,15 @@ namespace Assets.Scripts.Markers
             end.y = playerPos.y;
 
             m_lineRenderer.SetPosition(index: 0, start);
-            m_lineRenderer.SetPosition(index:1, end);
+            m_lineRenderer.SetPosition(index: 1, end);
             m_lineRenderer.enabled = Vector3.Distance(start, end) > m_disableDistance;
         }
+
+        public void Initialize(Transform playerTransform)
+        {
+            m_playerTransform = playerTransform;
+        }
+
         private Vector3 GetAimPosition()
         {
             var worldPosition = m_mouseResolver.GetCursorWorldPosition();

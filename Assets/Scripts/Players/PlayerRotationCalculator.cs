@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Players
 {
-    public class PlayerRotationCalculator
+    public sealed class PlayerRotationCalculator
     {
         private readonly Camera m_camera;
         private readonly Transform m_playerTransform;
@@ -34,6 +34,7 @@ namespace Assets.Scripts.Players
             {
                 return m_playerTransform.position + worldDirection;
             }
+
             return Vector3.zero;
         }
     }

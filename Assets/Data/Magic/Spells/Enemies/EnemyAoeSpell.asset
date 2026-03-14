@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Magic.Spells.Data.AoeSpellData
   m_spellName: Enemy Aoe Spell
   m_visualEffect: {fileID: 0}
-  m_combination: 
+  m_combination: 01000000
   m_effects:
   - rid: 2934264789105901632
   m_isTarget: 0

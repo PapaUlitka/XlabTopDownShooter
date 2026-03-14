@@ -6,11 +6,8 @@ using UnityEngine;
 public sealed class TargetMarker : MonoBehaviour
 {
     [Header("Parameters")]
-
     [SerializeField][Min(0)] private float m_startSize = 0.25f;
-
     [SerializeField][Min(0)] private float m_finishSize = 0.5f;
-
     [SerializeField][Min(0.0001f)] private float m_duration = 0.5f;
 
     [SerializeField] private Ease m_ease = Ease.InOutSine;
@@ -22,7 +19,6 @@ public sealed class TargetMarker : MonoBehaviour
         _tween?.Kill();
 
         gameObject.SetActive(true);
-
         transform.position = worldPosition;
 
         transform.localScale = Vector3.one * m_startSize;
@@ -35,7 +31,7 @@ public sealed class TargetMarker : MonoBehaviour
 
     public void Hide()
     {
-        _tween.Kill();
+        _tween?.Kill();
         _tween = null;
 
         gameObject.SetActive(false);

@@ -9,6 +9,7 @@ namespace Assets.Scripts.Magic.Effects
     public sealed class HealEffect : IEffect
     {
         [SerializeField][Min(0)] private float m_heal;
+
         public void Apply(IEffectable effectable)
         {
             if (effectable is IHealth health)

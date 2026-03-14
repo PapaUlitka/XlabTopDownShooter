@@ -3,30 +3,28 @@ using System.Collections;
 
 namespace Assets.Scripts.Markers
 {
-	public class TargetMarkerObserver: MonoBehaviour
-	{
-		[SerializeField] private TargetMarker m_targetMarker;
-		[SerializeField] private PlayerMovement m_playerMovement;
+    public sealed class TargetMarkerObserver : MonoBehaviour
+    {
+        [SerializeField] private TargetMarker m_targetMarker;
 
-        private void OnEnable()
+        private PlayerMovement m_playerMovement;
+
+        public void Initialize(PlayerMovement playerMovement)
         {
+            m_playerMovement = playerMovement;
             m_playerMovement.Stopped += OnPlayerStopped;
             m_playerMovement.DestinationChanged += OnDestinationChanged;
         }
 
-        private void OnDisable()
+        private void Deinitialize()
         {
-            
+
         }
 
-        private void OnPlayerStopped()
-        {
+        private void OnPlayerStopped() =>
             m_targetMarker.Hide();
-        }
 
-        private void OnDestinationChanged(Vector3 worldPosition)
-        {
+        private void OnDestinationChanged(Vector3 worldPosition) =>
             m_targetMarker.Show(worldPosition);
-        }
     }
 }

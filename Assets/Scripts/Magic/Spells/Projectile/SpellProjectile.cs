@@ -28,7 +28,6 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
     private void Awake()
     {
         m_rigidbody.useGravity = false;
-
         m_rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
@@ -36,7 +35,9 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
     {
         if (!m_initialized) return;
 
-        if(m_traveledDistance >= m_targetDistance)
+        m_traveledDistance += m_speed * Time.fixedDeltaTime;
+
+        if (m_traveledDistance >= m_targetDistance)
         {
             Destroy(gameObject);
         }
@@ -51,7 +52,6 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
         if (!m_initialized) return;
 
         m_effects.ApplyEffects(other.GetComponents<IEffectable>());
-
         Destroy(gameObject);
     }
 
@@ -68,7 +68,7 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
         m_traveledDistance = 0f;
         m_targetDistance = Vector3.Distance(transform.position, m_targetPosition);
 
-        if(m_direction != Vector3.zero)
+        if (m_direction != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(m_direction);
 
         m_initialized = true;
@@ -77,7 +77,5 @@ public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
     }
 
     private void SetLinearVelocity() =>
-    m_rigidbody.linearVelocity = m_direction * m_speed;
-
-
+        m_rigidbody.linearVelocity = m_direction * m_speed;
 }

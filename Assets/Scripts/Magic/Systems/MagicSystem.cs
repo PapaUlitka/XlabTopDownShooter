@@ -13,10 +13,11 @@ namespace Assets.Scripts.Magic.Systems
     {
         public event Action SpellCancelled;
         public event Action<MagicState> StateChanged;
-        public event Action<IReadOnlyList<ElementType>> ElementChanged
+
+        public event Action<IReadOnlyList<ElementType>> ElementsChanged
         {
-            add => spellPreparation.ElementChanged += value;
-            remove => spellPreparation.ElementChanged -= value;
+            add => spellPreparation.ElementsChanged += value;
+            remove => spellPreparation.ElementsChanged -= value;
         }
 
         [SerializeField] private MagicConfig m_config;
@@ -24,35 +25,35 @@ namespace Assets.Scripts.Magic.Systems
 
         private MagicState m_state;
         private SpellCaster m_caster;
-        private SpellPreparation m_spellPreparation;
         private Coroutine m_cooldownCoroutine;
+        private SpellPreparation m_spellPreparation;
 
         public MagicState state
         {
             get => m_state;
             private set
             {
-                if(m_state != value)
+                if (m_state != value)
                 {
                     m_state = value;
                     StateChanged?.Invoke(m_state);
                 }
             }
         }
+
+        private SpellPreparation spellPreparation =>
+            m_spellPreparation ??= new SpellPreparation(m_config);
+
         private void Awake()
         {
             m_caster = new SpellCaster(transform);
         }
-        private SpellPreparation spellPreparation => m_spellPreparation ??= new SpellPreparation(m_config);
 
-        private void OnEnable()
-        {
+        private void OnEnable() =>
             spellPreparation.OverflowOccurred += CancelSpell;
-        }
-        private void OnDisable()
-        {
+
+        private void OnDisable() =>
             spellPreparation.OverflowOccurred -= CancelSpell;
-        }
 
         public void AddElement(ElementType element)
         {
@@ -60,45 +61,18 @@ namespace Assets.Scripts.Magic.Systems
             {
                 return;
             }
+
             spellPreparation.AddElement(element);
             state = MagicState.Preparation;
         }
 
-        private void CancelSpell()
-        {
-            if(state is MagicState.Preparation)
-            {
-                spellPreparation.Clear();
-                SpellCancelled?.Invoke();
-
-                StartCooldown();
-            }
-        }
-
-        private void StartCooldown()
-        {
-            if(m_cooldownCoroutine is not null)
-            {
-                StopCoroutine(m_cooldownCoroutine);
-            }
-            m_cooldownCoroutine = StartCoroutine(CooldownRoutine());
-        }
-
-        private IEnumerator CooldownRoutine()
-        {
-            state = MagicState.Cooldown;
-            yield return new WaitForSeconds(m_config.cancelCooldown);
-            state = MagicState.Idle;
-
-            m_cooldownCoroutine = null;
-        }
-
         public void TryCastSpell()
         {
-            if(state is not MagicState.Preparation)
+            if (state is not MagicState.Preparation)
             {
                 return;
             }
+
             if (spellPreparation.TryGetSpell(out var spell))
             {
                 state = MagicState.Casting;
@@ -113,12 +87,35 @@ namespace Assets.Scripts.Magic.Systems
                 CancelSpell();
             }
         }
-    }
-    public enum MagicState
-    {
-        Idle,
-        Preparation,
-        Cooldown,
-        Casting
+
+        private void CancelSpell()
+        {
+            if (state is MagicState.Preparation)
+            {
+                spellPreparation.Clear();
+                SpellCancelled?.Invoke();
+
+                StartCooldown();
+            }
+        }
+
+        private void StartCooldown()
+        {
+            if (m_cooldownCoroutine is not null)
+            {
+                StopCoroutine(m_cooldownCoroutine);
+            }
+
+            m_cooldownCoroutine = StartCoroutine(CooldownRoutine());
+        }
+
+        private IEnumerator CooldownRoutine()
+        {
+            state = MagicState.Cooldown;
+            yield return new WaitForSeconds(m_config.cancelCooldown);
+            state = MagicState.Idle;
+
+            m_cooldownCoroutine = null;
+        }
     }
 }

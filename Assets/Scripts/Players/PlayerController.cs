@@ -1,3 +1,4 @@
+using Assets.Scripts.Entities;
 using Assets.Scripts.Inputs;
 using Assets.Scripts.Players;
 using Magic.Systems;
@@ -8,12 +9,18 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private PlayerConfig m_config; 
-    [SerializeField] private MouseResolver m_mouseResolver;
+    [SerializeField] private PlayerConfig m_config;
+    [SerializeField] private HealthComponent m_health;
     [SerializeField] private PlayerMovement m_playerMovement;
+
     [SerializeField] private MagicInputHelper m_magicInputHelper;
 
+    private MouseResolver m_mouseResolver;
     private PlayerRotationCalculator m_playerRotationCalculator;
+
+    public PlayerConfig Config => m_config;
+
+    public HealthComponent Health => m_health;
 
     private void OnValidate()
     {
@@ -21,36 +28,37 @@ public class PlayerController : MonoBehaviour
         {
             m_playerMovement = GetComponent<PlayerMovement>();
         }
-        if (!m_mouseResolver)
-        {
-            m_mouseResolver = GetComponent<MouseResolver>();
-        }
     }
 
-    private void Start()
+    public void Initialize(
+        Camera camera,
+        MouseResolver mouseResolver)
     {
-        var camera = Camera.main;
+        m_mouseResolver = mouseResolver;
+
+        m_health.Initialize(m_config.Hp);
         m_playerMovement.Initialize(m_config.speed, m_config.angularSpeed);
         m_playerRotationCalculator = new PlayerRotationCalculator(camera, transform);
 
         SetupCursor();
     }
 
-    void Update()
+    private void Update()
     {
-
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         var lookPoint = m_playerRotationCalculator.Calculate(mousePosition);
         m_playerMovement.RotateTowards(lookPoint);
+
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            
             Vector3? navPoint = m_mouseResolver.GetNavMeshPoint();
+
             if (navPoint.HasValue)
             {
                 m_playerMovement.SetDestination(navPoint.Value);
             }
         }
+
         m_magicInputHelper.Update();
     }
 
